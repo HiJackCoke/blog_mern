@@ -1,0 +1,26 @@
+{
+  "name": "blog_mern",
+  "version": "1.0.0",
+  "description": "blog_mern",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taehunlim/blog_mern.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taehunlim/blog_mern/issues"
+  },
+  "homepage": "https://github.com/taehunlim/blog_mern#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}
