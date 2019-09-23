@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/taehunlim/blog_mern#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.7.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"
