@@ -7,6 +7,7 @@ const passport = require('passport');
 const userModel = require('../models/user');
 
 const checkAuth = passport.authenticate('jwt', {session: false});
+const validateRegisterInput = require('../validation/register');
 
 // @route   GET user/test
 // @desc    Tests users route
@@ -25,13 +26,23 @@ router.get('/test', (req,res) =>{
 
 router.post('/signup', (req, res) => {
 
+    const{errors, isValid} = validateRegisterInput(req.body);
+
+    if(!isValid) {
+        return res.status(400).json(errors);
+    };
+
+
     userModel
         .findOne({email : req.body.email})
         .then(user =>{
             if(user) {
-                return res.status(400).json({
-                    msg : "email already exists"
-                });
+                errors.msg = "email already exists";
+                return res.status(400).json(errors);
+
+                // return res.status(400).json({
+                //     msg : "email already exists"
+                // });
             }
             else {
                 // avatar 생성

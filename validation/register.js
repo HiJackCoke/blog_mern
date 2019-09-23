@@ -18,6 +18,10 @@ module.exports = function validateRegisterInput(data) {
         errors.password = 'password must be at least 6 and characters';
     }
 
+    if (!Validator.isEmail(data.email)) {
+        errors.email = 'email not invalid';
+    }
+
 
     if(Validator.isEmpty(data.name)) {
         errors.name = 'name field is required';
