@@ -5,6 +5,10 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 
+const userRoutes = require('./routes/user');
+const profileRoutes = require('./routes/profile');
+const postRoutes = require('./routes/post');
+
 const db = "mongodb+srv://blog:asd123@cluster0-rsbsu.mongodb.net/test?retryWrites=true&w=majority";
 
 mongoose
@@ -19,6 +23,10 @@ mongoose
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
+
+app.use('/user', userRoutes);
+app.use('/profile', profileRoutes);
+app.use('/post', postRoutes);
 
 
 const port = 3000;
