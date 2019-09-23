@@ -3,8 +3,10 @@ const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const passport = require('passport');
 const userModel = require('../models/user');
+
+const checkAuth = passport.authenticate('jwt', {session: false});
 
 // @route   GET user/test
 // @desc    Tests users route
@@ -113,6 +115,22 @@ router.post('/login', (req, res) => {
         })
         .catch(err => res.json(err));
 });
+
+
+// @route   get user/current
+// @desc    current users route
+// @access  Private
+
+router.get('/current', checkAuth, (req, res) => {
+
+    res.json({
+        id : req.user.id,
+        name : req.user.name,
+        email : req.user.email
+    });
+
+});
+
 
 
 module.exports = router;
