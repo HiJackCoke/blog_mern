@@ -141,4 +141,36 @@ router.get('/handle/:handle', (req, res) => {
 });
 //삭제 숙제
 
+
+// @route   post profile/experience
+// @desc    Add experience to profile
+// @access  Private
+router.post('/experience', checkAuth, (req, res) => {
+   profileModel
+       .findOne( {user : req.user.id} )
+       .then(profile => {
+           const newExp = {
+               title : req.body.title,
+               company : req.body.company,
+               location : req.body.location,
+               from : req.body.from,
+               to : req.body.to,
+               current : req.body.current,
+               description : req.body.description
+           };
+           profile.experience.unshift(newExp); //Shift = 역순, unShift = 차례로
+           profile
+               .save()
+               .then(profile => {
+                   res.json(profile);
+               })
+               .catch(err => res.json (err));
+
+
+       })
+       .catch(err => res.json(err));
+});
+
+
+
 module.exports = router;
