@@ -34,7 +34,35 @@ const profileSchema = mongoose.Schema({
     githubusername : {
         type : String
     },
-    experience : [],
+    experience : [
+        {
+            title : {
+                type : String,
+                required : true
+            },
+            company : {
+                type : String,
+                required : true
+            },
+            location : {
+                type : String
+            },
+            from : {
+                type : Date,
+                required : true
+            },
+            to : {
+                type : Date
+            },
+            current : {
+                type : Boolean, //(true or false)
+                default : false
+            },
+            description : {
+                type : String
+            }
+        }
+    ],
     education : [],
     social : {},
     date : {
