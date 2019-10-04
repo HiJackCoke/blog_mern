@@ -50,20 +50,33 @@ router.post('/', checkAuth, (req, res) => {
     profileModel
         .findOne({user : req.user.id})
         .then(profile => {
-            profileModel
-                .findOne({ handle : profileFields.handle })
-                .then(profile => {
-                    if (profile) {
-                        errors.handle = 'that handle already exists';
-                        return res.status(400).json(errors);
-                    }
-                    new profileModel(profileFields)
-                        .save()
-                        .then(profile => res.json(profile))
-                        .catch(err => res.json(err));
+            if(profile) {
+                profileModel
+                    .findOneAndUpdate(
+                        {user : req.user.id},
+                        {$set: profileFields},
+                        {new: true}
+                    )
+                    .then(profile => res.json(profile))
+                    .catch(err => res.json(err));
+            }
+            else{
+                profileModel
+                    .findOne({ handle : profileFields.handle })
+                    .then(profile => {
+                        if (profile) {
+                            errors.handle = 'that handle already exists';
+                            return res.status(400).json(errors);
+                        }
+                        new profileModel(profileFields)
+                            .save()
+                            .then(profile => res.json(profile))
+                            .catch(err => res.json(err));
 
-                })
-                .catch(err => res.json(err));
+                    })
+                    .catch(err => res.json(err));
+            }
+
         })
         .catch(err => res.json(err));
 
