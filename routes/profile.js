@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const profileModel = require('../models/profile');
-const userModel = require('../models/user');
 const passport = require('passport');
 const validateProfileInput = require('../validation/profile');
 
@@ -118,6 +117,28 @@ router.post('/', checkAuth, (req, res) => {
 
 });
 
+
+
+// @route   Get profile/handle/:handle
+// @desc    Get profile by handle
+// @access  Public
+router.get('/handle/:handle', (req, res) => {
+
+    const errors ={};
+    profileModel
+        .findOne({ handle : req.params.handle})
+        .then(profile => {
+            if(!profile) {
+                errors.nopeProfile = 'there is no profile'
+                return res.status(400).json(errors);
+            }
+            res.status(200).json({
+               msg : "successful find the handle",
+               handleInfo : profile
+            });
+        })
+        .catch(err => res.json(err));
+});
 //삭제 숙제
 
 module.exports = router;
