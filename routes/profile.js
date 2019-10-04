@@ -50,6 +50,7 @@ router.post('/', checkAuth, (req, res) => {
     profileModel
         .findOne({user : req.user.id})
         .then(profile => {
+            // update
             if(profile) {
                 profileModel
                     .findOneAndUpdate(
@@ -57,10 +58,12 @@ router.post('/', checkAuth, (req, res) => {
                         {$set: profileFields},
                         {new: true}
                     )
+                    .populate('user', ['name', 'avatar'])
                     .then(profile => res.json(profile))
                     .catch(err => res.json(err));
             }
             else{
+                // new
                 profileModel
                     .findOne({ handle : profileFields.handle })
                     .then(profile => {
