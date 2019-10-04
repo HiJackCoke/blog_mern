@@ -3,7 +3,7 @@ const router = express.Router();
 const profileModel = require('../models/profile');
 const userModel = require('../models/user');
 const passport = require('passport');
-
+const validateProfileInput = require('../validation/profile');
 
 const checkAuth = passport.authenticate('jwt', {session: false});
 
@@ -13,6 +13,23 @@ const checkAuth = passport.authenticate('jwt', {session: false});
 // @access  Public
 router.get('/', (req, res) => {
 
+    profileModel
+        .find()
+        .populate('user', ['name', 'avatar'])
+        .then(docs => {
+
+            if(!docs) {
+                res.status(400).json({
+                   msg : "there are no profiles"
+                });
+            }
+            res.status(200).json({
+                msg : "successful find all profile",
+                count : docs.length,
+                profileInfo : docs
+            });
+        })
+        .catch(err => res.json(err));
 });
 
 // @route   Get profile/:profileId
@@ -20,6 +37,15 @@ router.get('/', (req, res) => {
 // @access  Private
 router.get('/:profileId', checkAuth, (req, res) => {
 
+    profileModel
+        .findById({_id : req.params.profileId})
+        .then(profile => {
+            res.status(200).json({
+                msg : "successful find detail profile",
+                profileInfo : profile
+            });
+        })
+        .catch(err => res.json(err));
 });
 
 
@@ -31,6 +57,12 @@ router.get('/:profileId', checkAuth, (req, res) => {
 // @desc    create profile
 // @access  Private
 router.post('/', checkAuth, (req, res) => {
+
+    const {errors, isValid} = validateProfileInput(req.body);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
 
     const profileFields = {};
     profileFields.user = req.user.id;
@@ -86,6 +118,6 @@ router.post('/', checkAuth, (req, res) => {
 
 });
 
-
+//삭제 숙제
 
 module.exports = router;
