@@ -9,16 +9,25 @@ const userModel = require('../models/user');
 const checkAuth = passport.authenticate('jwt', {session: false});
 const validateRegisterInput = require('../validation/register');
 
-// @route   GET user/test
-// @desc    Tests users route
+// @route   GET user/all
+// @desc    total data get
 // @access  Public
 
-router.get('/test', (req,res) =>{
-   res.json({
-       msg : "works"
-   })
-});
+//console.log는 개발자만 확인가능
 
+router.get('/all', (req, res) => {
+
+    userModel
+        .find()
+        .then(docs => {
+          res.status(200).json({
+              msg : "successful find all user data",
+              count : docs.length,
+              userInfo : docs
+          });
+        })
+        .catch(err => res.json(err));
+});
 
 // @route   Post user/signup
 // @desc    signup users route
