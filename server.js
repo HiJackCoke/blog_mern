@@ -4,16 +4,17 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const dotenv = require('dotenv');
+dotenv.config();
 
 
 const userRoutes = require('./routes/user');
 const profileRoutes = require('./routes/profile');
 const postRoutes = require('./routes/post');
 
-const db = "mongodb+srv://blog:asd123@cluster0-rsbsu.mongodb.net/test?retryWrites=true&w=majority";
 
 mongoose
-    .connect(db, {
+    .connect(process.env.MONGO_URI, {
         useNewUrlParser : true,
         useCreateIndex : true,
         useUnifiedTopology : true
@@ -32,6 +33,6 @@ app.use('/profile', profileRoutes);
 app.use('/post', postRoutes);
 
 
-const port = 3000;
+const port = process.env.PORT || 4000;
 
 app.listen(port, ()=> console.log(`server running on port ${port}`));

@@ -22,6 +22,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -45,7 +46,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1569236364432</updated>
-      <workItem from="1569236366423" duration="8454000" />
+      <workItem from="1569236366423" duration="8776000" />
+      <workItem from="1569407327760" duration="707000" />
+      <workItem from="1569926148440" duration="52000" />
+      <workItem from="1570185979315" duration="505000" />
+      <workItem from="1570186496564" duration="251000" />
     </task>
     <servers />
   </component>
@@ -57,7 +62,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
