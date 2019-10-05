@@ -139,7 +139,9 @@ router.get('/handle/:handle', (req, res) => {
         })
         .catch(err => res.json(err));
 });
-//삭제 숙제
+
+
+
 
 
 // @route   post profile/experience
@@ -171,6 +173,52 @@ router.post('/experience', checkAuth, (req, res) => {
        .catch(err => res.json(err));
 });
 
+
+// @route   post profile/education
+// @desc    Add education to profile
+// @access  Private
+router.post('/education' , checkAuth, (req,res) => {
+
+    profileModel
+        .findOne({ user : req.user.id })
+        .then(profile => {
+            const newEdu = {
+                school : req.body.school,
+                degree : req.body.degree,
+                major : req.body.major,
+                from : req.body.from,
+                to : req.body.to,
+                current : req.body.current,
+                description : req.body.description
+            };
+            profile.education.unshift(newEdu);
+            profile
+                .save()
+                .then(profile => {
+                    res.json(profile);
+                })
+                .catch(err => res.json(err));
+        })
+        .catch(err => res.json(err))
+
+});
+
+
+
+// @route   delete profile/:profileId
+// @desc    delete id from profile
+// @access  Private
+router.delete('/:profileId', checkAuth, (req, res) => {
+
+    profileModel
+        .remove({_id : req.params.profileId})
+        .then(profile => {
+            res.status(200).json({
+               msg : "successful delete the Id"
+            });
+        })
+        .catch(err => console.log(err));
+});
 
 
 module.exports = router;
