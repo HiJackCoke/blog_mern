@@ -105,4 +105,67 @@ router.delete('/:postId', checkAuth, (req, res) => {
 });
 
 
+
+// @route   POST post/like/:postId
+// @desc    like post
+// @access  Private
+router.post('/like/:postId', checkAuth, (req,res) => {
+   profileModel
+       .findOne({user : req.user.id})
+       .then(profile => {
+          postModel
+              .findById(req.params.postId)
+              .then(post => {
+                 if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+                    return res.status(400).json({
+                       msg : "user already liked this post"
+                    });
+                 }
+                 else{
+                    post.likes.unshift({user: req.user.id});
+                    post
+                        .save()
+                        .then(post => res.json(post));
+                 }
+              })
+              .catch(err => res.json(err))
+       })
+       .catch(err => res.json(err))
+
+});
+
+
+
+// @route   POST post/unlike/:postId
+// @desc    unlike post
+// @access  Private
+router.post('/unlike/:postId', checkAuth, (req, res) => {
+    profileModel
+        .findOne({user: req.user.id})
+        .then(profile => {
+            postModel
+                .findById(req.params.postId)
+                .then(post => {
+                    if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
+                        return res.status(400).json({
+                             msg : "you have not liked this post"
+                        });
+                    }
+                    else{
+                        const removeIndex = post.likes
+                            .map(item => item.user.toString())
+                            .indexOf(req.user.id);
+                        post.likes.splice(removeIndex, 1);
+
+                        post
+                            .save()
+                            .then(post => res.json(post));
+                    }
+                })
+                .catch(err => res.json(err))
+        })
+        .catch(err => res.json(err))
+});
+
+
 module.exports = router;
