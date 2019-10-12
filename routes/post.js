@@ -168,4 +168,56 @@ router.post('/unlike/:postId', checkAuth, (req, res) => {
 });
 
 
+
+// @route   POST post/comment/:postId
+// @desc    comment post
+// @access  Private
+router.post('/comment/:postId', checkAuth, (req, res) => {
+   postModel
+       .findById(req.params.postId)
+       .then(post => {
+           const newcomment = {
+               text : req.body.text,
+               name : req.user.name,
+               avatar : req.user.avatar,
+               user : req.user.id
+           };
+           post.comments.unshift(newcomment);
+           post
+               .save()
+               .then(post => res.json(post));
+       })
+       .catch(err => res.json(err))
+});
+
+
+// @route   DELETE post/comment/:postId/:commentId
+// @desc    comment delete
+// @access  Private
+router.delete('/comment/:postId/:commentId', checkAuth, (req, res) => {
+    postModel
+        .findById(req.params.postId)
+        .then(post => {
+            if(post.comments.filter(comment => comment._id.toString() === req.params.commentId).length === 0) {
+                return res.status(400).json ({
+                    msg : "comment dosen't exist"
+                });
+            }
+            else{
+                const removeIndex = post.comments
+                    .map(item => item._id.toString())
+                    .indexOf(req.params.commentId)
+                post.comments.splice(removeIndex, 1)
+                post
+                    .save()
+                    .then(post => res.json(post));
+            }
+        })
+        .catch(err => res.json(err));
+});
+
+
 module.exports = router;
+
+
+//comment, post 수정
