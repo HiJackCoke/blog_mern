@@ -40,9 +40,9 @@ const postSchema = mongoose.Schema({
             avatar : {
                 type : String
             },
-            data : {
-                type : Data,
-                default : Data.now
+            date : {
+                type : Date,
+                default : Date.now
             }
         }
     ],
@@ -51,7 +51,7 @@ const postSchema = mongoose.Schema({
         default : Date.now
     }
 
-    
+
 
 });
 
