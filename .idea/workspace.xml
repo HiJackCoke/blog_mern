@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba8c02c8-187e-4dbb-b36d-1d3916383fce" name="Default Changelist" comment="" />
+    <list default="true" id="ba8c02c8-187e-4dbb-b36d-1d3916383fce" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/validation/education.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/validation/experience.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/profile.js" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,8 +19,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1REdoZFdoHSSbVdoZYk0HyE6fCx" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/.env" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -52,6 +63,9 @@
       <workItem from="1570185979315" duration="505000" />
       <workItem from="1570186496564" duration="8107000" />
       <workItem from="1570247405574" duration="4851000" />
+      <workItem from="1570694809236" duration="484000" />
+      <workItem from="1570842491947" duration="292000" />
+      <workItem from="1570842800696" duration="2675000" />
     </task>
     <servers />
   </component>

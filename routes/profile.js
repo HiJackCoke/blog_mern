@@ -3,6 +3,8 @@ const router = express.Router();
 const profileModel = require('../models/profile');
 const passport = require('passport');
 const validateProfileInput = require('../validation/profile');
+const validateEducationInput = require('../validation/education');
+const validateExperienceInput = require('../validation/experience');
 
 const checkAuth = passport.authenticate('jwt', {session: false});
 
@@ -148,6 +150,12 @@ router.get('/handle/:handle', (req, res) => {
 // @desc    Add experience to profile
 // @access  Private
 router.post('/experience', checkAuth, (req, res) => {
+
+    const {errors, isValid} = validateExperienceInput(req.body);
+    if(!isValid){
+        return res.status(400).json(errors)
+    }
+
    profileModel
        .findOne( {user : req.user.id} )
        .then(profile => {
@@ -178,6 +186,12 @@ router.post('/experience', checkAuth, (req, res) => {
 // @desc    Add education to profile
 // @access  Private
 router.post('/education' , checkAuth, (req,res) => {
+
+    const {errors, isValid} = validateEducationInput(req.body);
+
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
 
     profileModel
         .findOne({ user : req.user.id })
