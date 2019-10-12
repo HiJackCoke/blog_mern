@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba8c02c8-187e-4dbb-b36d-1d3916383fce" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/validation/post.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/post.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/post.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/post.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/post.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,7 +61,7 @@
       <workItem from="1570247405574" duration="4851000" />
       <workItem from="1570694809236" duration="484000" />
       <workItem from="1570842491947" duration="292000" />
-      <workItem from="1570842800696" duration="4913000" />
+      <workItem from="1570842800696" duration="6274000" />
     </task>
     <servers />
   </component>

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const postModel = require('../models/post');
+const profileModel= require('../models/profile');
 const passport = require('passport');
 const validatePostInput = require('../validation/post');
 
@@ -14,6 +15,7 @@ router.get('/', (req,res) => {
 
    postModel
        .find()
+       .sort({date : -1}) //최신순으로 정열해줌
        .then(docs => {
           res.status(200).json({
              msg : "successful get all post",
@@ -22,6 +24,23 @@ router.get('/', (req,res) => {
           })
        })
        .catch(err => res.json(err));
+});
+
+
+// @route   GET post/:postId
+// @desc    get detail post
+// @access  Public
+router.get('/:postId', (req,res) => {
+   postModel
+       .findById(req.params.postId)
+       .then(doc => {
+          res.status(200).json({
+             msg : "successful get detail post",
+             postInfo : doc
+          });
+       })
+       .catch(err => res.json(err))
+
 });
 
 
@@ -56,6 +75,34 @@ router.post('/', checkAuth, (req, res)=> {
 
 });
 
+
+
+// @route   DELETE post/:postId
+// @desc    delete post
+// @access  Private
+router.delete('/:postId', checkAuth, (req, res) => {
+   profileModel //profileModel에서는 user의 id를 참조 하기떄문에 findOne, userModel에서는 id를 바로 참조하기 떄문에 findById
+       .findOne({user: req.user.id})
+       .then(profile => {
+          postModel
+              .findById(req.params.postId)
+              .then(post => {
+                 //check for post owner
+                 if(post.user.toString() !== req.user.id) {
+                    return res.status(400).json({
+                       msg : "user not authorize"
+                    })
+                 }
+                 else {
+                    post
+                        .remove()
+                        .then(() => res.json({success: true}));
+                 }
+              })
+              .catch(err => res.json(err));
+       })
+       .catch(err => res.json(err));
+});
 
 
 module.exports = router;
